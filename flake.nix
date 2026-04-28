@@ -31,7 +31,7 @@
           }
           {
             name = "Cgroup-VRAM";
-            patch "./patches/001-cgroup-vram.patch";
+            patch = "./patches/001-cgroup-vram.patch";
           }
           # Add further patches manually to ensure strict application order
         ];
