@@ -16,7 +16,7 @@
           version = "7.0.2";
           src = pkgs.fetchurl {
             url = "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-${version}.tar.xz";
-            sha256 = "sha256-53591a03294527a48ccb0b9e559e922df8a38554745a1206827ca751d2ca7662=";
+            sha256 = "53591a03294527a48ccb0b9e559e922df8a38554745a1206827ca751d2ca7662";
           };
         };
 
