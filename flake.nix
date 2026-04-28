@@ -38,7 +38,7 @@
 
         structuredExtraConfig = with pkgs.lib.kernel; {
           SCHED_BORE = yes;
-          SCHED_AUTOGROUP = no;
+          SCHED_AUTOGROUP = pkgs.lib.mkForce no;
         };
 
         ignoreConfigErrors = true;
