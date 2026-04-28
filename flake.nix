@@ -30,10 +30,7 @@
         };
 
         kernelPatches = pkgs.linux_latest.kernelPatches ++ customPatches;
-        
-        structuredExtraConfig = with pkgs.lib.kernel; {
-          CONFIG_SCHED_BORE ="y";
-        };
+
       };
 
     in {
