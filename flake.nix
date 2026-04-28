@@ -1,10 +1,6 @@
 {
   description = "Latest Linux Kernel built with patches from TKG, Nobara, OGC & CachyOS";
 
-# NOTE - the basis of this code has been AI Generated using Gemini - I am a beginner in Nix so I needed a base that I could work from
-# NOTE - This is a rewrite I have made of the original, keeping syntax and everything the same
-
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
