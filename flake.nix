@@ -41,5 +41,4 @@
         linuxPackages_zenplus = pkgs.linuxPackagesFor zenplus;
       };
     };
-    };
 }
