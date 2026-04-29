@@ -38,23 +38,23 @@
 
         structuredExtraConfig = with pkgs.lib.kernel; {
           # SCHED CONFIG
-          SCHED_BORE = kernel.yes;
+          SCHED_BORE = tkgKernel.yes;
           SCHED_AUTOGROUP = pkgs.lib.mkForce no;
           # Cachy Optimisations
-          CACHY = kernel.yes;
-          MQ_IOSCHED_ADIOS = kernel.yes;
+          CACHY = tkgKernel.yes;
+          MQ_IOSCHED_ADIOS = tkgKernel.yes;
           # PREEMPT
-          PREEMPT_DYNAMIC = kernel.yes;
-          HZ_1000 = kernel.yes; #Tick Rate - Similar to TKG kernel config
-          HZ = kernel.freeform "1000";
-          NO_HZ_IDLE = kernel.yes;
+          PREEMPT_DYNAMIC = tkgKernel.yes;
+          HZ_1000 = tkgKernel.yes; #Tick Rate - Similar to TKG kernel config
+          HZ = tkgKernel.freeform "1000";
+          NO_HZ_IDLE = tkgKernel.yes;
 
           # Optimize for x86_64v3 CPU's (will update accordingly for my hardware)
-          GENERIC_CPU = kernel.yes;
-          X86_64_VERSION = kernel.freeform "3";
+          GENERIC_CPU = tkgKernel.yes;
+          X86_64_VERSION = tkgKernel.freeform "3";
 
           # Memory Management
-          TRANSPARENT_HUGEPAGE_ALWAYS = kernel.yes;
+          TRANSPARENT_HUGEPAGE_ALWAYS = tkgKernel.yes;
 
           
         };
