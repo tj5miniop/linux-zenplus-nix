@@ -23,4 +23,9 @@
 
 ## Kernel Overview 
 
-# A "port" of Linux-Tkg for NixOS (more specifically my configuration)
+#### A custom linux kernel for NixOS patched with gaming related utilities such as 
+
+- BORE Scheduler (Used by CachyOS) (SCX-LAVD enabled in my configuration)
+- OpenRGB patches 
+- Gamescope patches
+- more to come..... 
