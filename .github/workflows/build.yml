@@ -47,7 +47,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG_NAME="v${{ steps.meta.outputs.version }}-${{ steps.meta.outputs.date }}"
-          gh release create "$TAG_NAME" \
+          gh release create --latest \
             --title "Kernel ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.date }})" \
             --notes "Automated build of Linux ZenPlus. Includes latest upstream changes and applied patches"
