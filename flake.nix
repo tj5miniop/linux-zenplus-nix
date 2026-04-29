@@ -10,20 +10,20 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
 
-      # Rename to zenplus and use linux_zen as the base
-      zenplus = pkgs.linux_zen.override {
+      # while the kernel is named zenplus, only use the linux_latest - zenplus just sounds better 
+      zenplus = pkgs.linux_latest.override {
         kernelPatches = [
           {
             name = "BORE";
-            patch = "./patches/bore.patch";
+            patch = "patches/bore.patch";
           }
           {
             name = "cgroup-vram";
-            patch = ./patches/cgroup-vram.patch;
+            patch = patches/cgroup-vram.patch;
           }
           {
             name = "glitched-base"; # From TKG
-            patch = ./patches/glitched-base.patch;
+            patch = patches/glitched-base.patch;
           }
         ];
 
