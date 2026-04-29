@@ -14,7 +14,7 @@
       zenplus = pkgs.linux_zen.override {
         kernelPatches = [
           {
-            name = "BORE"
+            name = "BORE";
             patch = "./patches/bore.patch"
           }
           {
