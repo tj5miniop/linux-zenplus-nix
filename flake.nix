@@ -15,7 +15,7 @@
         kernelPatches = [
           {
             name = "BORE";
-            patch = "./patches/bore.patch"
+            patch = "./patches/bore.patch";
           }
           {
             name = "cgroup-vram";
