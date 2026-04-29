@@ -53,5 +53,5 @@ jobs:
           # Create the release
           gh release create "$RELEASE_DATE" \
             --title "Kernel Build - $RELEASE_DATE" \
-            --generate-release-notes \
+            --generate-notes \
             --notes "Automated Linux ZenPlus build as of $RELEASE_DATE"
