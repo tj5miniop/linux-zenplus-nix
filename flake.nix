@@ -33,30 +33,25 @@
             name = "glitched-base";
             patch = "./patches/0003-glitched-base.patch";
           }
-          # Add further patches manually to ensure strict application order
+          # Add further patches IN ORDER OF PATCHES
         ];
-
         structuredExtraConfig = with pkgs.lib.kernel; {
           # SCHED CONFIG
-          SCHED_BORE = tkgKernel.yes;
+          SCHED_BORE = yes;
           SCHED_AUTOGROUP = pkgs.lib.mkForce no;
           # Cachy Optimisations
           CACHY = tkgKernel.yes;
-          MQ_IOSCHED_ADIOS = tkgKernel.yes;
+          MQ_IOSCHED_ADIOS = yes;
           # PREEMPT
-          PREEMPT_DYNAMIC = tkgKernel.yes;
-          HZ_1000 = tkgKernel.yes; #Tick Rate - Similar to TKG kernel config
-          HZ = tkgKernel.freeform "1000";
-          NO_HZ_IDLE = tkgKernel.yes;
-
+          PREEMPT_DYNAMIC = yes;
+          HZ_1000 = yes; #Tick Rate - Similar to TKG kernel config
+          HZ = freeform "1000";
+          NO_HZ_IDLE = yes;
           # Optimize for x86_64v3 CPU's (will update accordingly for my hardware)
-          GENERIC_CPU = tkgKernel.yes;
-          X86_64_VERSION = tkgKernel.freeform "3";
-
+          GENERIC_CPU = yes;
+          X86_64_VERSION = freeform "3";
           # Memory Management
-          TRANSPARENT_HUGEPAGE_ALWAYS = tkgKernel.yes;
-
-          
+          TRANSPARENT_HUGEPAGE_ALWAYS = yes;
         };
 
         ignoreConfigErrors = true;
