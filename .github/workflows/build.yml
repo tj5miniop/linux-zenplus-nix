@@ -43,10 +43,15 @@ jobs:
           file_pattern: 'flake.lock'
           push_options: '--force-with-lease'
 
-      - name: Create Release
+      - name: Publish GH Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create --latest \
-            --title "Kernel ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.date }})" \
-            --notes "Automated build of Linux ZenPlus. Includes latest upstream changes and applied patches"
+          # Generate date in YYYY.MM.DD format
+          RELEASE_DATE=$(date +'%Y.%m.%d')
+          
+          # Create the release
+          gh release create "$RELEASE_DATE" \
+            --title "Kernel Build - $RELEASE_DATE" \
+            --generate-release-notes \
+            --notes "Automated Linux ZenPlus build as of $RELEASE_DATE"
