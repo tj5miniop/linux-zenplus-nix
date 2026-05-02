@@ -6,24 +6,23 @@
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { 
-        inherit system; 
-        config.allowUnfree = true; 
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
       };
 
-      zenplus = pkgs.linux_latest.override {
+      mkZenplus = pkgs_: pkgs_.linux_latest.override {
         kernelPatches = [
           { name = "BORE"; patch = ./patches/bore.patch; }
           { name = "cgroup-vram"; patch = ./patches/cgroup-vram.patch; }
           { name = "glitched-base"; patch = ./patches/glitched-base.patch; }
         ];
-        structuredExtraConfig = with pkgs.lib.kernel; {
+        structuredExtraConfig = with pkgs_.lib.kernel; {
           SCHED_BORE = yes;
-          PREEMPT_DYNAMIC = yes;          
+          PREEMPT_DYNAMIC = yes;
           HZ_1000 = yes;
           HZ = freeform "1000";
           CACHY = yes;
-          # Build for Zenver4 CPUs
           GENERIC_CPU = no;
           MZEN4 = yes;
           X86_NATIVE_CPU = no;
@@ -31,18 +30,18 @@
         ignoreConfigErrors = true;
       };
 
+      zenplus = mkZenplus pkgs;
+
     in {
       packages.${system} = {
-        # Point to the kernel derivation
         linux-zenplus = zenplus;
-        # Make the kernel the default build target
         default = self.packages.${system}.linux-zenplus;
-        # Export the full package set for kernel modules
         zenplusPackages = pkgs.linuxPackagesFor zenplus;
       };
 
       overlays.default = final: prev: {
-        linuxPackages_zenplus = pkgs.linuxPackagesFor zenplus;
+        linux_zenplus = mkZenplus final;
+        linuxPackages_zenplus = final.linuxPackagesFor final.linux_zenplus;
       };
     };
 }
