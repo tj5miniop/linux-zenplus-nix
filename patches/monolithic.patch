@@ -1172,7 +1172,7 @@ index b20a06abb65d..8eb4cf4df083 100644
  extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
  
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 83567ade8429..60b92084ea7e 100644
+index b56b6759e1c3..796da2668242 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 @@ -248,6 +248,8 @@ int amdgpu_umsch_mm_fwlog;
@@ -1224,7 +1224,7 @@ index 83567ade8429..60b92084ea7e 100644
   * They are supported by the mach64, r128, radeon drivers
   */
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5a54d3f4a3de..70c216524038 100644
+index 6c5a1ba4cb00..b01a692cd6ca 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 @@ -2069,6 +2069,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
@@ -1237,7 +1237,7 @@ index 5a54d3f4a3de..70c216524038 100644
  	adev->dm.dc->debug.visual_confirm = amdgpu_dc_visual_confirm;
  
  	/* TODO: Remove after DP2 receiver gets proper support of Cable ID feature */
-@@ -7380,7 +7383,7 @@ create_stream_for_sink(struct drm_connector *connector,
+@@ -7381,7 +7384,7 @@ create_stream_for_sink(struct drm_connector *connector,
  	update_stream_signal(stream, sink);
  
  	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
@@ -1246,7 +1246,7 @@ index 5a54d3f4a3de..70c216524038 100644
  
  	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
  	    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
-@@ -9617,7 +9620,11 @@ static void update_freesync_state_on_stream(
+@@ -9618,7 +9621,11 @@ static void update_freesync_state_on_stream(
  
  	aconn = (struct amdgpu_dm_connector *)new_stream->dm_stream_context;
  
@@ -1259,7 +1259,7 @@ index 5a54d3f4a3de..70c216524038 100644
  		pack_sdp_v1_3 = aconn->pack_sdp_v1_3;
  
  		if (aconn->vsdb_info.amd_vsdb_version == 1)
-@@ -13135,8 +13142,8 @@ static void parse_edid_displayid_vrr(struct drm_connector *connector,
+@@ -13141,8 +13148,8 @@ static void parse_edid_displayid_vrr(struct drm_connector *connector,
  	}
  }
  
@@ -1270,7 +1270,7 @@ index 5a54d3f4a3de..70c216524038 100644
  {
  	u8 *edid_ext = NULL;
  	int i;
-@@ -13152,6 +13159,9 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+@@ -13158,6 +13165,9 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
  			break;
  	}
  
@@ -1280,7 +1280,7 @@ index 5a54d3f4a3de..70c216524038 100644
  	while (j < EDID_LENGTH - sizeof(struct amd_vsdb_block)) {
  		struct amd_vsdb_block *amd_vsdb = (struct amd_vsdb_block *)&edid_ext[j];
  		unsigned int ieeeId = (amd_vsdb->ieee_id[2] << 16) | (amd_vsdb->ieee_id[1] << 8) | (amd_vsdb->ieee_id[0]);
-@@ -13170,13 +13180,13 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+@@ -13176,13 +13186,13 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
  	return false;
  }
  
@@ -1298,7 +1298,7 @@ index 5a54d3f4a3de..70c216524038 100644
  
  	/*----- drm_find_cea_extension() -----*/
  	/* No EDID or EDID extensions */
-@@ -13197,9 +13207,83 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+@@ -13203,9 +13213,83 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
  	if (edid_ext[0] != CEA_EXT)
  		return -ENODEV;
  
@@ -1384,7 +1384,7 @@ index 5a54d3f4a3de..70c216524038 100644
  }
  
  /**
-@@ -13216,16 +13300,19 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+@@ -13222,16 +13306,19 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
  void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
  				    const struct drm_edid *drm_edid)
  {
@@ -1406,7 +1406,7 @@ index 5a54d3f4a3de..70c216524038 100644
  
  	if (!connector->state) {
  		drm_err(adev_to_drm(adev), "%s - Connector has no state", __func__);
-@@ -13253,63 +13340,73 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+@@ -13259,63 +13346,73 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
  	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
  		goto update;
  
@@ -4957,7 +4957,7 @@ index 000000000000..c83817589082
 +		.attrs = _fname##_turbo_attrs,                                    \
 +	}
 diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index 472bca54642b..96bbd8161f49 100644
+index b1ad4e9f20c8..e917cc7ead8a 100644
 --- a/drivers/hid/hid-asus.c
 +++ b/drivers/hid/hid-asus.c
 @@ -23,6 +23,7 @@
@@ -5067,10 +5067,10 @@ index 000000000000..f67dd5a3a1bc
 +
 +#endif	/* __HID_ASUS_H */
 diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index a5b3a8ca2fcb..524f2b9ed512 100644
+index 8be4e06af463..a7067def433e 100644
 --- a/drivers/hid/hid-core.c
 +++ b/drivers/hid/hid-core.c
-@@ -2887,6 +2887,11 @@ static int hid_uevent(const struct device *dev, struct kobj_uevent_env *env)
+@@ -2891,6 +2891,11 @@ static int hid_uevent(const struct device *dev, struct kobj_uevent_env *env)
  	if (add_uevent_var(env, "MODALIAS=hid:b%04Xg%04Xv%08Xp%08X",
  			   hdev->bus, hdev->group, hdev->vendor, hdev->product))
  		return -ENOMEM;
@@ -5083,10 +5083,10 @@ index a5b3a8ca2fcb..524f2b9ed512 100644
  	return 0;
  }
 diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index 85ab1ac51109..2c7c07356128 100644
+index 666ce30c83b4..928a956dffd9 100644
 --- a/drivers/hid/hid-ids.h
 +++ b/drivers/hid/hid-ids.h
-@@ -733,6 +733,10 @@
+@@ -737,6 +737,10 @@
  #define USB_DEVICE_ID_ITE8595		0x8595
  #define USB_DEVICE_ID_ITE_MEDION_E1239T	0xce50
  
@@ -5097,7 +5097,7 @@ index 85ab1ac51109..2c7c07356128 100644
  #define USB_VENDOR_ID_JABRA		0x0b0e
  #define USB_DEVICE_ID_JABRA_SPEAK_410	0x0412
  #define USB_DEVICE_ID_JABRA_SPEAK_510	0x0420
-@@ -852,7 +856,10 @@
+@@ -856,7 +860,10 @@
  #define USB_DEVICE_ID_LENOVO_PIXART_USB_MOUSE_602E	0x602e
  #define USB_DEVICE_ID_LENOVO_PIXART_USB_MOUSE_6093	0x6093
  #define USB_DEVICE_ID_LENOVO_LEGION_GO_DUAL_DINPUT	0x6184
@@ -11905,7 +11905,7 @@ index 8f34f4b8183d..dab9d5521f41 100644
  	struct drm_hdmi_dsc_cap dsc_cap;
  };
 diff --git a/include/linux/device.h b/include/linux/device.h
-index 0be95294b6e6..381463baed6d 100644
+index e65d564f01cd..d2e6d340f6e3 100644
 --- a/include/linux/device.h
 +++ b/include/linux/device.h
 @@ -189,6 +189,22 @@ ssize_t device_show_string(struct device *dev, struct device_attribute *attr,

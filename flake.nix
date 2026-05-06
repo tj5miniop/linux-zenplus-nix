@@ -16,6 +16,8 @@
           { name = "BORE"; patch = ./patches/bore.patch; }
           { name = "cgroup-vram"; patch = ./patches/cgroup-vram.patch; }
           { name = "glitched-base"; patch = ./patches/glitched-base.patch; }
+          { name = "monolithic"; patch = ./patches/monolithic.patch; }
+          { name = "Gamescope Fixups"; patch = ./patches/valve-gamescope-framerate-control-fixups; }
         ];
         structuredExtraConfig = with pkgs_.lib.kernel; {
           SCHED_BORE = yes;
